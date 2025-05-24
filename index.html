@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ইসলামিক শিক্ষা ও প্ল্যাটফর্ম</title>
+  <style>
+    body {
+      font-family: 'SolaimanLipi', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+      color: #333;
+    }
+    nav {
+      background: #009688;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    nav button {
+      background: #ffffff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    nav button.active {
+      background: #004d40;
+      color: white;
+    }
+    section {
+      padding: 20px;
+      display: none;
+    }
+    section.active {
+      display: block;
+      background: white;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    .dark-mode {
+      background: #2c3e50;
+      color: #f0f0f0;
+    }
+    .dark-mode section {
+      background: #34495e;
+      color: #fff;
+    }
+    nav button:active {
+      transform: scale(0.95);
+    }
+    h1 {
+      animation: fadeIn 1.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #e0e0e0;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body><nav>
+  <button class="active" onclick="showContent('hadith')">হাদিস</button>
+  <button onclick="showContent('story')">শিক্ষামূলক গল্প</button>
+  <button onclick="showContent('about')">আমার সম্পর্কে</button>
+  <button onclick="showContent('quran')">কোরআনের আয়াত</button>
+  <button onclick="showContent('dua')">দোয়া</button>
+  <button onclick="showContent('masnun')">মাসউন দোয়া ও হাদিস</button>
+  <button onclick="showContent('biography')">রাসূল (সা.) এর জীবনী</button>
+  <button onclick="showContent('sahaba')">সাহাবিদের জীবনী</button>
+  <button onclick="showContent('video')">ভিডিও</button>
+  <button onclick="showContent('audio')">অডিও</button>
+  <button onclick="showContent('quiz')">ইসলামিক কুইজ</button>
+  <button onclick="showContent('todaysHadith')">আজকের হাদিস</button>
+  <button onclick="showContent('gallery')">ইসলামিক গ্যালারি</button>
+  <button onclick="showContent('feedback')">ফিডব্যাক</button>
+  <button onclick="showContent('blog')">ব্লগ</button>
+  <button onclick="toggleTheme()">থিম পরিবর্তন করো</button>
+</nav><section id="hadith" class="active"></section>
+<section id="story"></section>
+<section id="about"></section>
+<section id="quran"></section>
+<section id="dua"></section>
+<section id="masnun"></section>
+<section id="biography"></section>
+<section id="sahaba"></section>
+<section id="video"></section>
+<section id="audio"></section>
+<section id="quiz"></section>
+<section id="todaysHadith"></section>
+<section id="gallery"></section>
+<section id="feedback"></section>
+<section id="blog"></section><section id="qa-section">
+  <h2>তোমার প্রশ্ন করো</h2>
+  <input type="text" id="user-question" placeholder="তোমার প্রশ্ন লিখো" style="width: 80%; padding: 10px;" />
+  <button onclick="submitQuestion()">প্রশ্ন পাঠাও</button>
+  <p id="answer-display" style="margin-top: 15px;"></p>
+</section><footer>
+  <p>&copy; ২০২৫ | তানভীর</p>
+  <div>
+    <a href="https://facebook.com" target="_blank">Facebook</a> |
+    <a href="https://youtube.com" target="_blank">YouTube</a> |
+    <a href="https://instagram.com" target="_blank">Instagram</a> |
+    <a href="https://t.me" target="_blank">Telegram</a>
+  </div>
+  <br />
+  <button onclick="alert('UPI: tanvir@upi\nবিকাশ: 01xxxxxxxxx\nনগদ: 01xxxxxxxxx')">
+    Donet / Appreciate
+  </button>
+</footer><script>
+const contents = {
+  hadith: `“সত্য কথা বলা সবসময় উত্তম; মিথ্যা থেকে দূরে থাকো।” – (সহীহ বুখারী)`,
+  story: `একবার রাসূল (সা.) বলেছেন...`,
+  about: `আমি তানভীর...`,
+  quran: `“إِنَّ اللَّهَ مَعَ الصَّابِرِينَ” — নিশ্চয়ই আল্লাহ ধৈর্যশীলদের সাথে আছেন।`,
+  dua: `رَبِّ زِدْنِي عِلْمًا — হে আমার প্রভু, আমাকে জ্ঞান বৃদ্ধি দাও।`,
+  masnun: `ঘুমানোর পূর্বে: بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا`,
+  biography: `রাসূল (সা.) জন্মগ্রহণ করেন ৫৭০ খ্রিস্টাব্দে...`,
+  sahaba: `সাহাবা আবু বকর (রা.) ছিলেন...`,
+  video: `ভিডিও প্লেয়ার এখানে যুক্ত হবে`,
+  audio: `অডিও প্লেয়ার এখানে যুক্ত হবে`,
+  quiz: `ইসলামিক কুইজ: \n১. ইসলামের পাঁচ স্তম্ভ কী কী?`,
+  todaysHadith: `আজকের হাদিস:\n"মুসলমান মুসলমানের ভাই।" – সহীহ মুসলিম`,
+  gallery: `ইসলামিক আর্ট ও ছবি আপলোড এখানে হবে`,
+  feedback: `আপনার মতামত দিন:\n[কমেন্ট বক্স এখানে আসবে]`,
+  blog: `ইসলামিক খবর ও আমার লেখা ব্লগ এখানে থাকবে`
+};
+
+function showContent(id) {
+  document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
+
+  document.getElementById(id
